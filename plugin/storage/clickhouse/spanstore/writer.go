@@ -1,6 +1,7 @@
 package spanstore
 
 import (
+	"context"
 	"database/sql"
 	"encoding/json"
 	"fmt"
@@ -200,7 +201,7 @@ func (w *SpanWriter) writeIndexBatch(batch []*model.Span) error {
 }
 
 // WriteSpan writes the encoded span
-func (w *SpanWriter) WriteSpan(span *model.Span) error {
+func (w *SpanWriter) WriteSpan(_ context.Context, span *model.Span) error {
 	w.spans <- span
 	return nil
 }

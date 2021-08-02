@@ -1,6 +1,7 @@
 package dependencystore
 
 import (
+	"context"
 	"errors"
 	"time"
 
@@ -13,7 +14,7 @@ var (
 )
 
 type Reader interface {
-	GetDependencies(endTs time.Time, lookback time.Duration) ([]model.DependencyLink, error)
+	GetDependencies(ctx context.Context, endTs time.Time, lookback time.Duration) ([]model.DependencyLink, error)
 }
 
 // DependencyStore handles all queries and insertions to Clickhouse dependencies
@@ -29,6 +30,6 @@ func NewDependencyStore(store spanstore.Reader) *DependencyStore {
 }
 
 // GetDependencies returns all interservice dependencies, implements DependencyReader
-func (s *DependencyStore) GetDependencies(endTs time.Time, lookback time.Duration) ([]model.DependencyLink, error) {
+func (s *DependencyStore) GetDependencies(_ context.Context, endTs time.Time, lookback time.Duration) ([]model.DependencyLink, error) {
 	return nil, errNotImplemented
 }
